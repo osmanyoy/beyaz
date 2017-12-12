@@ -11,17 +11,14 @@ import java.util.Set;
 
 public class StreamMain {
 	public static void main(final String[] args) {
-		try {
+		File file = new File("myfile.txt");
+		try (FileInputStream fileInputStream = new FileInputStream(file);
+		        FileReader fileReader = new FileReader(file)) {
 			Set<String> strings = new HashSet<>();
 			Collection<String> synchronizedCollection = Collections.synchronizedCollection(strings);
 
 			Collections.synchronizedSet(null);
 
-			File file = new File("myfile.txt");
-			// yol 1
-			FileInputStream fileInputStream = new FileInputStream(file);
-			// yol 2
-			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			char[] cbuf = new char[1024 * 1024 * 1000];
 			bufferedReader.read(cbuf);

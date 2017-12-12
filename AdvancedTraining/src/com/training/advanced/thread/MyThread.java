@@ -73,6 +73,12 @@ public class MyThread extends Thread {
 				if ((incrementAndGet % 500_000) == 0) {
 					Thread.sleep(1);
 				}
+				if (this.isInterrupted()) {
+					return;
+				}
+				if (Thread.interrupted()) {
+
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
