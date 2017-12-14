@@ -7,6 +7,10 @@ public class Person {
     private String name;
     private String surname;
 
+    public Person() {
+        System.out.println("Person conrtuct");
+    }
+
     public String getName() {
         return this.name;
     }
