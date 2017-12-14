@@ -54,6 +54,7 @@ public class CollectionsMain {
 			     return myToplam.getToplam();
 		     }).toplam(r));
 
+		//
 		Files.readAllLines(Paths.get("./t.txt"))
 		     .stream()
 		     .map(s -> Integer.parseInt(s))
