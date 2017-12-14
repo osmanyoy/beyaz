@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import com.training.spring.aop.Called;
 
 @Configuration
+@EnableAspectJAutoProxy
 public class STConfiguration {
 
     private MyObject mob;
@@ -16,6 +20,11 @@ public class STConfiguration {
     public STConfiguration(final MyObject mob) {
         System.out.println("STConfiguration construct");
         this.mob = mob;
+    }
+
+    @Bean
+    public Called createCalled() {
+        return new Called();
     }
 
     @PostConstruct

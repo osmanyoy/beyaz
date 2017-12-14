@@ -2,9 +2,8 @@ package com.training.spring;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 public class BeanTest implements BeanPostProcessor {
 
     @Override

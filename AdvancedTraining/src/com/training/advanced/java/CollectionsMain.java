@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CollectionsMain {
 	public static void main(final String[] args) throws IOException {
@@ -40,6 +41,22 @@ public class CollectionsMain {
 			return myToplam.getToplam();
 		};
 
+		int intValue = Files.readAllLines(Paths.get("./t.txt"))
+		                    .stream()
+		                    .map(s -> Integer.parseInt(s))
+		                    .reduce(0,
+		                            (x, y) -> x + y)
+		                    .intValue();
+
+		System.out.println("Toplam : " + intValue);
+
+		int sum = Files.readAllLines(Paths.get("./t.txt"))
+		               .stream()
+		               .mapToInt(s -> Integer.parseInt(s))
+		               .sum();
+
+		System.out.println("Toplam 2 : " + intValue);
+
 		Files.readAllLines(Paths.get("./t.txt"))
 		     .stream()
 		     .map(s -> Integer.parseInt(s))
@@ -62,6 +79,27 @@ public class CollectionsMain {
 			     uniqueSayilar.add(r);
 			     myToplam.setToplam(myToplam.getToplam() + r);
 		     });
+
+		List<Integer> collect = Files.readAllLines(Paths.get("./t.txt"))
+		                             .stream()
+		                             .map(s -> Integer.parseInt(s))
+		                             .collect(Collectors.toList());
+		System.out.println(collect);
+		List<Integer> collect2 = Files.readAllLines(Paths.get("./t.txt"))
+		                              .stream()
+		                              .map(s -> Integer.parseInt(s))
+		                              .collect(ArrayList::new,
+		                                       ArrayList::add,
+		                                       ArrayList::addAll);
+		System.out.println(collect2);
+
+		// List<Integer> collect2 = Files.readAllLines(Paths.get("./t.txt"))
+		// .stream()
+		// .map(s -> Integer.parseInt(s))
+		// .collect(MyCollectHelper::new,
+		// MyCollectHelper::accept,
+		// MyCollectHelper::acceptAll);
+		// System.out.println(collect2);
 
 	}
 }
