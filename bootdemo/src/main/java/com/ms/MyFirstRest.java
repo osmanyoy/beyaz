@@ -3,6 +3,7 @@ package com.ms;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +20,24 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
+@RefreshScope
 public class MyFirstRest {
 
 	@Value("${my.test}")
 	private String str;
+
+	@Value("${server.port}")
+	private int port;
+
+	@GetMapping("/status")
+	public MyStatus getMyStatus() {
+		MyStatus myStatus = new MyStatus();
+		myStatus.setCause(100);
+		myStatus.setDesc("Result from : " + this.port);
+		myStatus.setExtra("extra");
+		myStatus.setMextra("Mex");
+		return myStatus;
+	}
 
 	@GetMapping("testconfig")
 	public String testConfig() {
@@ -36,19 +51,12 @@ public class MyFirstRest {
 		return "Hello World : " + name + " " + surname;
 	}
 
-	@GetMapping("/status")
-	public MyStatus getMyStatus() {
-		MyStatus myStatus = new MyStatus();
-		myStatus.setCause(100);
-		myStatus.setDesc("asjhdhsadgsa");
-		myStatus.setExtra("extra");
-		myStatus.setMextra("Mex");
-		return myStatus;
-	}
-
 	@PostMapping("/test")
-	@ApiOperation(notes = "Deneme notu", response = MyStatus.class, value = "Deneme Operasyon desc")
-	@ApiResponses({ @ApiResponse(code = 201, message = "Deneme mesajı") })
+	@ApiOperation(notes = "Deneme notu",
+	              response = MyStatus.class,
+	              value = "Deneme Operasyon desc")
+	@ApiResponses({ @ApiResponse(code = 201,
+	                             message = "Deneme mesajı") })
 	public ResponseEntity<?> getMyStatus(@Valid @RequestBody MyStatus myStatus) {
 		return ResponseEntity.status(HttpStatus.CREATED)
 		                     .body(myStatus);
